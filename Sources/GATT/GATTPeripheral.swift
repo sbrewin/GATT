@@ -130,7 +130,10 @@ public final class GATTPeripheral <HostController: BluetoothHostControllerInterf
             writeDatabase { $0.write(newValue, forAttribute: handle) }
             connectionsQueue
                 .sync { [unowned self] in self.connections.values }
-                .forEach { $0.writeValue(newValue, forCharacteristic: handle) }
+                .forEach {
+                    log?("Writing newValue \(newValue) for attribute \(handle)")
+                    $0.writeValue(newValue, forCharacteristic: handle)
+            }
         }
     }
     
