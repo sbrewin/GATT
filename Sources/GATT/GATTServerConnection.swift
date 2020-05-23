@@ -79,7 +79,7 @@ public final class GATTServerConnection <L2CAPSocket: L2CAPSocketProtocol> {
             // update peripheral database
             database = connection.server.database
             
-            server.log?("Wrote value \(value) for characteristic \(handle)")
+            server.log?("GATTServerConnection: Wrote value \(value) for characteristic \(handle)")
         })
     }
     
@@ -190,8 +190,12 @@ public final class GATTServerConnection <L2CAPSocket: L2CAPSocketProtocol> {
                 
                 /// write outgoing pending ATT PDUs
                 var didWrite = false
+                server.log("GATTServerConnection: Attempting write")
                 repeat { didWrite = try (self?.server.write() ?? false) }
                 while didWrite && (self?.isRunning ?? false)
+                if didWrite {
+                    server.log("GATTServerConnection: Write succeeded")
+                }
             }
             
             catch { self?.error(error) }
