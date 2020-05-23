@@ -79,7 +79,7 @@ public final class GATTServerConnection <L2CAPSocket: L2CAPSocketProtocol> {
             // update peripheral database
             database = connection.server.database
             
-            server.log?("GATTServerConnection: Wrote value \(value) for characteristic \(handle)")
+            self?.callback.log?("GATTServerConnection: Wrote value \(value) for characteristic \(handle)")
         })
     }
     
@@ -106,7 +106,7 @@ public final class GATTServerConnection <L2CAPSocket: L2CAPSocketProtocol> {
         }
         
         server.willWrite = { [unowned self] (uuid, handle, value, newValue) in
-            
+            self.callback.log?("GATTServerConnection: willWrite uuid: \(uuid), handle: \(handle), value: \(value), newValue: \(newValue)")
             let request = GATTWriteRequest(central: self.central,
                                            maximumUpdateValueLength: self.maximumUpdateValueLength,
                                            uuid: uuid,
@@ -180,7 +180,7 @@ public final class GATTServerConnection <L2CAPSocket: L2CAPSocketProtocol> {
     }
     
     private func write() {
-        
+        self.callback.log?("GATTServerConnection: Invoking async write")
         // write outgoing PDU in the background.
         writeQueue.async { [weak self] in
             
@@ -190,11 +190,11 @@ public final class GATTServerConnection <L2CAPSocket: L2CAPSocketProtocol> {
                 
                 /// write outgoing pending ATT PDUs
                 var didWrite = false
-                self?.server.log?("GATTServerConnection: Attempting write")
+                self?.callback.log?("GATTServerConnection: Attempting write")
                 repeat { didWrite = try (self?.server.write() ?? false) }
                 while didWrite && (self?.isRunning ?? false)
                 if didWrite {
-                    self?.server.log?("GATTServerConnection: Write succeeded")
+                    self?.callback.log?("GATTServerConnection: Write succeeded")
                 }
             }
             
