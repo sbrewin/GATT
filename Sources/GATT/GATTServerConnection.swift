@@ -190,11 +190,11 @@ public final class GATTServerConnection <L2CAPSocket: L2CAPSocketProtocol> {
                 
                 /// write outgoing pending ATT PDUs
                 var didWrite = false
-                server.log("GATTServerConnection: Attempting write")
+                self?.server.log?("GATTServerConnection: Attempting write")
                 repeat { didWrite = try (self?.server.write() ?? false) }
                 while didWrite && (self?.isRunning ?? false)
                 if didWrite {
-                    server.log("GATTServerConnection: Write succeeded")
+                    self?.server.log?("GATTServerConnection: Write succeeded")
                 }
             }
             
