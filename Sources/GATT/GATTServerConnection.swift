@@ -79,7 +79,7 @@ public final class GATTServerConnection <L2CAPSocket: L2CAPSocketProtocol> {
             // update peripheral database
             database = connection.server.database
             
-            self?.callback.log?("GATTServerConnection: Wrote value \(value) for characteristic \(handle)")
+            self?.callback.log?("GATTServerConnection: Wrote value 0x\(value.hexEncodedString()) for characteristic \(handle)")
         })
     }
     
