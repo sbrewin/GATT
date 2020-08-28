@@ -122,6 +122,7 @@ public final class GATTCentral <HostController: BluetoothHostControllerInterface
         
         // store connection
         self.connections[peripheral] = connection
+        log?("Connected! Peripheral: \(peripheral), connection: \(String(describing: connections[peripheral])) ")
     }
     
     public func disconnect(peripheral: Peripheral) {
@@ -204,7 +205,7 @@ public final class GATTCentral <HostController: BluetoothHostControllerInterface
     private func connection(for peripheral: Peripheral) throws -> GATTClientConnection<L2CAPSocket> {
         
         // TODO Remove after debugging
-        log?("Connections:")
+        log?("Connections (\(connections.count)):")
         connections.forEach{peripheral, connection in
             log?("Peripheral: \(peripheral), Connection: \(connection)")
         }
