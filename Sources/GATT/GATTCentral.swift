@@ -97,8 +97,10 @@ public final class GATTCentral <HostController: BluetoothHostControllerInterface
         guard let (scanData, report) = scanData[peripheral]
             else { throw CentralError.unknownPeripheral }
         
-        guard let newConnection = self.newConnection
-            else { return }
+        guard let newConnection = self.newConnection else {
+            log?("Failed to obtain a new connection")
+            return
+        }
         
         // log
         self.log?("[\(scanData.peripheral)]: Open connection (\(report.addressType))")
