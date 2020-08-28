@@ -203,6 +203,12 @@ public final class GATTCentral <HostController: BluetoothHostControllerInterface
     
     private func connection(for peripheral: Peripheral) throws -> GATTClientConnection<L2CAPSocket> {
         
+        // TODO Remove after debugging
+        log?("Connections:")
+        connections.forEach{peripheral, connection in
+            log?("Peripheral: \(peripheral), Connection: \(connection)")
+        }
+        
         guard let _ = scanData[peripheral]
             else { throw CentralError.unknownPeripheral }
         
