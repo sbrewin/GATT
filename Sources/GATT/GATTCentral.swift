@@ -98,7 +98,7 @@ public final class GATTCentral <HostController: BluetoothHostControllerInterface
             else { throw CentralError.unknownPeripheral }
         
         guard let newConnection = self.newConnection else {
-            log?("Failed to obtain a new connection")
+            log?("Variable newConnection must not be nil")
             return
         }
         
