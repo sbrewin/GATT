@@ -220,6 +220,7 @@ public final class GATTClientConnection <L2CAPSocket: L2CAPSocketProtocol> {
                        timeout: TimeInterval) throws {
         
         assert(characteristic.peripheral == peripheral)
+        callback.log?("Notify for characteristic \(characteristic)")
         
         // GATT characteristic
         guard let (_ , gattCharacteristic) = cache.characteristic(for: characteristic.identifier)
