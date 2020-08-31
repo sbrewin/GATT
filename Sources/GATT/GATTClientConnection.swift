@@ -256,12 +256,12 @@ public final class GATTClientConnection <L2CAPSocket: L2CAPSocketProtocol> {
          */
         
         if gattCharacteristic.attribute.properties.contains(.notify) {
-            
+            callback.log?("Characteristic \(gattCharacteristic) contains notify \(String(describing: notification))")
             notify = notification
             indicate = nil
             
         } else if gattCharacteristic.attribute.properties.contains(.indicate) {
-            
+            callback.log?("Characteristic \(gattCharacteristic) contains indicate \(String(describing: notification))")
             notify = nil
             indicate = notification
             
