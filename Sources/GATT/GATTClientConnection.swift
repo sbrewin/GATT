@@ -276,6 +276,7 @@ public final class GATTClientConnection <L2CAPSocket: L2CAPSocketProtocol> {
         }
         
         // GATT request
+        callback.log?("Async invoke of clientCharacteristicConfiguration")
         try async(timeout: timeout) {
             client.clientCharacteristicConfiguration(notification: notify,
                                                      indication: indicate,
